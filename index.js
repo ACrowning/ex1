@@ -4,26 +4,29 @@ const products = [
 	{id: 3, title: 'title3', description: 'description3'},
 ]
 const button = document.querySelector('#addButton')
+const prodUl = document.querySelector('#products')
 
-function createUl() {products.forEach(product => {
-	const prodUl = document.querySelector('#products')
-	const newUl = document.createElement("ul")
-	const newLiTitle = document.createElement("li")
-		
-	newUl.textContent = 
-	`${product.id}`
-	newLiTitle.textContent = 
-	`${product.title}, ${product.description}`
+function createUl(items, container) {
+	items.forEach(product => {
+		const newUl = document.createElement("ul")
+		const newLiTitle = document.createElement("li")
 			
-	prodUl.appendChild(newUl)
-	newUl.appendChild(newLiTitle)	
-})}
+		newUl.textContent = 
+		`${product.id}`
+		newLiTitle.textContent = 
+		`${product.title}, ${product.description}`
+				
+		container.appendChild(newUl)
+		newUl.appendChild(newLiTitle)	
+	})
+}
+createUl(products, prodUl)
 
-let nextCount = 4
-
-function add() {
-	const addNewObject = {id: `${nextCount++}`, title: 'title_', description: 'description_'}
-	const prodUl = document.querySelector('#products')
+function add(item, cont) {
+	const nextCount = item.length + 1
+	const addNewObject = {id: `${nextCount}`, title: 'title_', description: 'description_'}
+	item.push(addNewObject)
+	
 	const newUl = document.createElement("ul")
 	const newLiTitle = document.createElement("li")
 	
@@ -32,8 +35,13 @@ function add() {
 	newLiTitle.textContent = 
 	`${addNewObject.title}, ${addNewObject.description}`
 			
-	prodUl.appendChild(newUl)
+	cont.appendChild(newUl)
 	newUl.appendChild(newLiTitle)	
 }
+add(products, prodUl)
 
-createUl(button.addEventListener("click", add))
+function init() {
+	button.addEventListener("click", add)
+	createUl()
+}
+init()
