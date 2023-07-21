@@ -20,12 +20,11 @@ function createUl(items, container) {
 		newUl.appendChild(newLiTitle)	
 	})
 }
-createUl(products, prodUl)
 
-function add(item, cont) {
-	const nextCount = item.length + 1
+function add(items, container) {
+	const nextCount = items.length + 1
 	const addNewObject = {id: `${nextCount}`, title: 'title_', description: 'description_'}
-	item.push(addNewObject)
+	items.push(addNewObject)
 	
 	const newUl = document.createElement("ul")
 	const newLiTitle = document.createElement("li")
@@ -35,13 +34,14 @@ function add(item, cont) {
 	newLiTitle.textContent = 
 	`${addNewObject.title}, ${addNewObject.description}`
 			
-	cont.appendChild(newUl)
+	container.appendChild(newUl)
 	newUl.appendChild(newLiTitle)	
 }
-add(products, prodUl)
 
 function init() {
-	button.addEventListener("click", add)
-	createUl()
+	button.addEventListener("click", function () {
+		add(products, prodUl)
+	})
+	createUl(products, prodUl)
 }
 init()
