@@ -5,6 +5,8 @@ const products = [
 ]
 const button = document.querySelector('#addButton')
 const prodUl = document.querySelector('#products')
+const inputTitle = document.querySelector('#title')
+const inputDescription = document.querySelector('#description')
 
 function createUl(items, container) {
 	items.forEach(product => {
@@ -21,11 +23,23 @@ function createUl(items, container) {
 	})
 }
 
-function add(items, container) {
+function add(items, container, tit, des) {
+	if (tit.value.length === 0) {
+		return
+	}
+	else if (des.value.length === 0) {
+		des.value = '-'
+	}
+
 	const nextCount = items.length + 1
-	const addNewObject = {id: `${nextCount}`, title: 'title_', description: 'description_'}
+	const addNewObject = {
+		id: `${nextCount}`,
+		title: `${tit.value}`,
+		description: `${des.value}`
+	}
+
 	items.push(addNewObject)
-	
+		
 	const newUl = document.createElement("ul")
 	const newLiTitle = document.createElement("li")
 	
@@ -35,13 +49,14 @@ function add(items, container) {
 	`${addNewObject.title}, ${addNewObject.description}`
 			
 	container.appendChild(newUl)
-	newUl.appendChild(newLiTitle)	
+	newUl.appendChild(newLiTitle)
 }
 
 function init() {
 	button.addEventListener("click", function () {
-		add(products, prodUl)
+		add(products, prodUl, inputTitle, inputDescription) 
 	})
 	createUl(products, prodUl)
 }
+
 init()
