@@ -23,19 +23,13 @@ function createUl(items, container) {
 	})
 }
 
-function add(items, container, tit, des) {
-	if (tit.value.length === 0) {
-		return
-	}
-	else if (des.value.length === 0) {
-		des.value = '-'
-	}
+function add(items, container) {
 
 	const nextCount = items.length + 1
 	const addNewObject = {
 		id: `${nextCount}`,
-		title: `${tit.value}`,
-		description: `${des.value}`
+		title: `${inputTitle.value}`,
+		description: `${inputDescription.value}`
 	}
 
 	items.push(addNewObject)
@@ -52,10 +46,30 @@ function add(items, container, tit, des) {
 	newUl.appendChild(newLiTitle)
 }
 
+function onAdd() {
+	if (inputTitle.value.length === 0) {
+		return alert('Void title! Enter the title, please')
+	}
+	else if (inputDescription.value.length === 0) {
+		inputDescription.value = '-'
+	}
+
+	add(products, prodUl)
+
+	inputTitle.value = ''
+	inputDescription.value = '' 
+}
+
+function enterBtn(event) {
+	if (event.key === 'Enter') {
+		button.click()
+	}}
+
 function init() {
-	button.addEventListener("click", function () {
-		add(products, prodUl, inputTitle, inputDescription) 
+	button.addEventListener("click", function () {onAdd()
 	})
+	inputTitle.addEventListener('keydown', enterBtn)
+	inputDescription.addEventListener('keydown', enterBtn)
 	createUl(products, prodUl)
 }
 
